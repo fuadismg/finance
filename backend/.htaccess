@@ -1,0 +1,5 @@
+<IfModule mime_module>
+AddHandler application/x-httpd-alt-php83___lsphp .php .php8 .phtml
+</IfModule>
+
+

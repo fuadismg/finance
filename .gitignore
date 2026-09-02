@@ -1,0 +1,14 @@
+# CodeIgniter 3 Backend
+backend/vendor/
+backend/application/cache/*
+!backend/application/cache/index.html
+backend/application/logs/*
+!backend/application/logs/index.html
+backend/user_guide_src/
+backend/user_guide/
+
+# Flutter (App) will use its own .gitignore inside app/ folder,
+# but we can add general ignores here just in case.
+.idea/
+*.iml
+.DS_Store
