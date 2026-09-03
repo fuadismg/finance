@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../auth/auth_provider.dart';
 
 class ProfileScreen extends ConsumerWidget {
@@ -11,10 +12,7 @@ class ProfileScreen extends ConsumerWidget {
       padding: const EdgeInsets.all(16.0),
       children: [
         const SizedBox(height: 24),
-        const CircleAvatar(
-          radius: 50,
-          child: Icon(Icons.person, size: 50),
-        ),
+        const CircleAvatar(radius: 50, child: Icon(Icons.person, size: 50)),
         const SizedBox(height: 16),
         const Text(
           'Nama Pengguna',
@@ -27,7 +25,7 @@ class ProfileScreen extends ConsumerWidget {
           style: TextStyle(color: Colors.grey),
         ),
         const SizedBox(height: 32),
-        
+
         ListTile(
           leading: const Icon(Icons.category),
           title: const Text('Kelola Kategori'),
@@ -57,7 +55,10 @@ class ProfileScreen extends ConsumerWidget {
         const Divider(),
         ListTile(
           leading: const Icon(Icons.logout, color: Colors.red),
-          title: const Text('Keluar (Logout)', style: TextStyle(color: Colors.red)),
+          title: const Text(
+            'Keluar (Logout)',
+            style: TextStyle(color: Colors.red),
+          ),
           onTap: () async {
             // Konfirmasi sebelum logout
             final confirm = await showDialog<bool>(
@@ -72,7 +73,10 @@ class ProfileScreen extends ConsumerWidget {
                   ),
                   TextButton(
                     onPressed: () => Navigator.pop(context, true),
-                    child: const Text('Keluar', style: TextStyle(color: Colors.red)),
+                    child: const Text(
+                      'Keluar',
+                      style: TextStyle(color: Colors.red),
+                    ),
                   ),
                 ],
               ),
