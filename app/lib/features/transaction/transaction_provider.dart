@@ -1,10 +1,15 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../../data/local_db_helper.dart';
+
 import 'package:intl/intl.dart';
 
-final transactionProvider = StateNotifierProvider<TransactionNotifier, List<Map<String, dynamic>>>((ref) {
-  return TransactionNotifier();
-});
+final transactionProvider =
+    StateNotifierProvider<TransactionNotifier, List<Map<String, dynamic>>>((
+      ref,
+    ) {
+      return TransactionNotifier();
+    });
 
 class TransactionNotifier extends StateNotifier<List<Map<String, dynamic>>> {
   TransactionNotifier() : super([]) {
@@ -18,11 +23,17 @@ class TransactionNotifier extends StateNotifier<List<Map<String, dynamic>>> {
     state = maps;
   }
 
-  Future<void> addTransaction(int walletId, int categoryId, double amount, String type, String note) async {
+  Future<void> addTransaction(
+    int walletId,
+    int categoryId,
+    double amount,
+    String type,
+    String note,
+  ) async {
     final db = await LocalDbHelper.instance.database;
     final now = DateTime.now();
     final dateStr = DateFormat('yyyy-MM-dd HH:mm:ss').format(now);
-    
+
     await db.insert('transactions', {
       'user_id': 1, // TODO: Dinamis dari Auth
       'wallet_id': walletId,
@@ -31,7 +42,7 @@ class TransactionNotifier extends StateNotifier<List<Map<String, dynamic>>> {
       'tipe': type,
       'tanggal': dateStr,
       'catatan': note,
-      'sync_status': 'pending_insert'
+      'sync_status': 'pending_insert',
     });
     await loadTransactions();
   }
