@@ -7,7 +7,7 @@ use Firebase\JWT\Key;
 
 class Sync extends RestController {
 
-    private $jwt_key = 'RAHASIA_DOMPET_DIGITAL_123!';
+    private $jwt_key = 'RAHASIA_DOMPET_DIGITAL_123_SUPER_AMAN_32_CHARS_MINIMUM';
     private $jwt_algo = 'HS256';
 
     public function __construct()
