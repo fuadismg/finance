@@ -98,27 +98,25 @@ class TransactionScreen extends ConsumerWidget {
   }
 
   void _showAddTransactionDialog(BuildContext context, WidgetRef ref) {
-    final wallets = ref.read(walletProvider);
-    if (wallets.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Harap tambahkan dompet terlebih dahulu!'),
-        ),
-      );
-      return;
-    }
+    try {
+      final wallets = ref.read(walletProvider);
+      if (wallets.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Harap tambahkan dompet terlebih dahulu!')),
+        );
+        return;
+      }
 
-    final catatanController = TextEditingController();
-    final jumlahController = TextEditingController();
-    String tipeSelected = 'pengeluaran';
-    int? walletIdSelected = wallets.first['id'];
-    int categoryIdSelected = 1; // Default kategori sementara
+      final catatanController = TextEditingController();
+      final jumlahController = TextEditingController();
+      String tipeSelected = 'pengeluaran';
+      int walletIdSelected = (wallets.first['id'] as num).toInt();
+      int categoryIdSelected = 1; // Default kategori sementara
 
-    showDialog(
-      context: context,
-      builder: (context) {
-        return StatefulBuilder(
-          builder: (context, setState) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return StatefulBuilder(builder: (context, setState) {
             return AlertDialog(
               title: const Text('Tambah Transaksi'),
               content: SingleChildScrollView(
@@ -129,36 +127,25 @@ class TransactionScreen extends ConsumerWidget {
                       value: tipeSelected,
                       decoration: const InputDecoration(labelText: 'Tipe'),
                       items: const [
-                        DropdownMenuItem(
-                          value: 'pengeluaran',
-                          child: Text('Pengeluaran'),
-                        ),
-                        DropdownMenuItem(
-                          value: 'pemasukan',
-                          child: Text('Pemasukan'),
-                        ),
+                        DropdownMenuItem(value: 'pengeluaran', child: Text('Pengeluaran')),
+                        DropdownMenuItem(value: 'pemasukan', child: Text('Pemasukan')),
                       ],
                       onChanged: (val) => setState(() => tipeSelected = val!),
                     ),
                     DropdownButtonFormField<int>(
                       value: walletIdSelected,
-                      decoration: const InputDecoration(
-                        labelText: 'Pilih Dompet',
-                      ),
+                      decoration: const InputDecoration(labelText: 'Pilih Dompet'),
                       items: wallets.map((w) {
                         return DropdownMenuItem<int>(
-                          value: w['id'],
-                          child: Text(w['nama_wallet']),
+                          value: (w['id'] as num).toInt(),
+                          child: Text(w['nama_wallet'].toString()),
                         );
                       }).toList(),
-                      onChanged: (val) =>
-                          setState(() => walletIdSelected = val),
+                      onChanged: (val) => setState(() => walletIdSelected = val!),
                     ),
                     TextField(
                       controller: jumlahController,
-                      decoration: const InputDecoration(
-                        labelText: 'Jumlah (Rp)',
-                      ),
+                      decoration: const InputDecoration(labelText: 'Jumlah (Rp)'),
                       keyboardType: TextInputType.number,
                     ),
                     TextField(
@@ -176,18 +163,15 @@ class TransactionScreen extends ConsumerWidget {
                 FilledButton(
                   onPressed: () {
                     final catatan = catatanController.text;
-                    final jumlah =
-                        double.tryParse(jumlahController.text) ?? 0.0;
-                    if (jumlah > 0 && walletIdSelected != null) {
-                      ref
-                          .read(transactionProvider.notifier)
-                          .addTransaction(
-                            walletIdSelected!,
-                            categoryIdSelected,
-                            jumlah,
-                            tipeSelected,
-                            catatan,
-                          );
+                    final jumlah = double.tryParse(jumlahController.text) ?? 0.0;
+                    if (jumlah > 0) {
+                      ref.read(transactionProvider.notifier).addTransaction(
+                        walletIdSelected, 
+                        categoryIdSelected, 
+                        jumlah, 
+                        tipeSelected, 
+                        catatan
+                      );
                       Navigator.pop(context);
                     }
                   },
@@ -195,11 +179,16 @@ class TransactionScreen extends ConsumerWidget {
                 ),
               ],
             );
-          },
-        );
-      },
-    );
+          });
+        },
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error buka form: $e')),
+      );
+    }
   }
+
 
   Widget _buildTransactionItem(
     BuildContext context,
