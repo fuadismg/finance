@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import '../auth/auth_provider.dart';
+import '../sync/sync_service.dart';
 
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
@@ -39,8 +39,13 @@ class ProfileScreen extends ConsumerWidget {
           leading: const Icon(Icons.sync),
           title: const Text('Sinkronisasi Data (Push)'),
           trailing: const Icon(Icons.chevron_right),
-          onTap: () {
-            // TODO: Panggil fungsi sync push
+          onTap: () async {
+            final syncService = SyncService();
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Menyinkronkan data...')));
+            final result = await syncService.syncPush();
+            if (context.mounted) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(result['message'])));
+            }
           },
         ),
         const Divider(),
