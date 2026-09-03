@@ -73,12 +73,6 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
           NavigationDestination(icon: Icon(Icons.person), label: 'Profil'),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // TODO: Tambah Transaksi
-        },
-        child: const Icon(Icons.add),
-      ),
     );
   }
 }
