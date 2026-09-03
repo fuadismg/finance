@@ -25,7 +25,7 @@ class WalletScreen extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 16),
-        
+
         // Placeholder Daftar Dompet
         _buildWalletItem(context, 'Uang Tunai', 'cash', 500000),
         _buildWalletItem(context, 'Rekening BCA', 'bank', 3500000),
@@ -34,18 +34,29 @@ class WalletScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildWalletItem(BuildContext context, String nama, String tipe, double saldo) {
+  Widget _buildWalletItem(
+    BuildContext context,
+    String nama,
+    String tipe,
+    double saldo,
+  ) {
     IconData icon;
-    if (tipe == 'cash') icon = Icons.money;
-    else if (tipe == 'bank') icon = Icons.account_balance;
-    else icon = Icons.account_balance_wallet;
+    if (tipe == 'cash')
+      icon = Icons.money;
+    else if (tipe == 'bank')
+      icon = Icons.account_balance;
+    else
+      icon = Icons.account_balance_wallet;
 
     return Card(
       margin: const EdgeInsets.only(bottom: 12),
       child: ListTile(
         leading: CircleAvatar(
           backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
-          child: Icon(icon, color: Theme.of(context).colorScheme.onSecondaryContainer),
+          child: Icon(
+            icon,
+            color: Theme.of(context).colorScheme.onSecondaryContainer,
+          ),
         ),
         title: Text(nama, style: const TextStyle(fontWeight: FontWeight.bold)),
         subtitle: Text(tipe.toUpperCase()),

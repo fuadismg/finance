@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'features/home/home_screen.dart';
 import 'features/wallet/wallet_screen.dart';
+import 'features/transaction/transaction_screen.dart';
+import 'features/profile/profile_screen.dart';
 
 import 'features/auth/auth_provider.dart';
 import 'features/auth/login_screen.dart';
@@ -28,7 +31,6 @@ class MyApp extends ConsumerWidget {
   }
 }
 
-
 class MainNavigationScreen extends StatefulWidget {
   const MainNavigationScreen({super.key});
 
@@ -41,9 +43,9 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
 
   final List<Widget> _pages = [
     const HomeScreen(),
-    const Center(child: Text('Daftar Transaksi')), // TODO: Buat screen transaksi
+    const TransactionScreen(),
     const WalletScreen(),
-    const Center(child: Text('Profil & Pengaturan')), // TODO: Buat screen profil
+    const ProfileScreen(),
   ];
 
   @override

@@ -33,8 +33,18 @@ class HomeScreen extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            _buildQuickAction(context, Icons.arrow_upward, 'Pemasukan', Colors.green),
-            _buildQuickAction(context, Icons.arrow_downward, 'Pengeluaran', Colors.red),
+            _buildQuickAction(
+              context,
+              Icons.arrow_upward,
+              'Pemasukan',
+              Colors.green,
+            ),
+            _buildQuickAction(
+              context,
+              Icons.arrow_downward,
+              'Pengeluaran',
+              Colors.red,
+            ),
             _buildQuickAction(context, Icons.sync, 'Sinkronisasi', Colors.blue),
           ],
         ),
@@ -46,16 +56,39 @@ class HomeScreen extends StatelessWidget {
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 16),
-        
+
         // Placeholder Transaksi (Nantinya diambil dari SQLite)
-        _buildTransactionItem(context, 'Makan Siang', 'Makanan & Minuman', -35000, 'Hari ini'),
-        _buildTransactionItem(context, 'Gaji Bulanan', 'Gaji', 5000000, 'Kemarin'),
-        _buildTransactionItem(context, 'Bensin', 'Transportasi', -50000, '2 hari lalu'),
+        _buildTransactionItem(
+          context,
+          'Makan Siang',
+          'Makanan & Minuman',
+          -35000,
+          'Hari ini',
+        ),
+        _buildTransactionItem(
+          context,
+          'Gaji Bulanan',
+          'Gaji',
+          5000000,
+          'Kemarin',
+        ),
+        _buildTransactionItem(
+          context,
+          'Bensin',
+          'Transportasi',
+          -50000,
+          '2 hari lalu',
+        ),
       ],
     );
   }
 
-  Widget _buildQuickAction(BuildContext context, IconData icon, String label, Color color) {
+  Widget _buildQuickAction(
+    BuildContext context,
+    IconData icon,
+    String label,
+    Color color,
+  ) {
     return Column(
       children: [
         CircleAvatar(
@@ -74,7 +107,13 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildTransactionItem(BuildContext context, String title, String category, double amount, String date) {
+  Widget _buildTransactionItem(
+    BuildContext context,
+    String title,
+    String category,
+    double amount,
+    String date,
+  ) {
     final isIncome = amount > 0;
     return Card(
       margin: const EdgeInsets.only(bottom: 12),
@@ -82,7 +121,9 @@ class HomeScreen extends StatelessWidget {
       color: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.3),
       child: ListTile(
         leading: CircleAvatar(
-          backgroundColor: isIncome ? Colors.green.withOpacity(0.2) : Colors.red.withOpacity(0.2),
+          backgroundColor: isIncome
+              ? Colors.green.withOpacity(0.2)
+              : Colors.red.withOpacity(0.2),
           child: Icon(
             isIncome ? Icons.arrow_downward : Icons.arrow_upward,
             color: isIncome ? Colors.green : Colors.red,
