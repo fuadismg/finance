@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'features/home/home_screen.dart';
+import 'features/wallet/wallet_screen.dart';
+
 import 'features/auth/auth_provider.dart';
 import 'features/auth/login_screen.dart';
 
 void main() {
-  runApp(
-    const ProviderScope(
-      child: MyApp(),
-    ),
-  );
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends ConsumerWidget {
@@ -29,6 +28,7 @@ class MyApp extends ConsumerWidget {
   }
 }
 
+
 class MainNavigationScreen extends StatefulWidget {
   const MainNavigationScreen({super.key});
 
@@ -40,10 +40,10 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   int _currentIndex = 0;
 
   final List<Widget> _pages = [
-    const Center(child: Text('Beranda / Dashboard')),
-    const Center(child: Text('Transaksi')),
-    const Center(child: Text('Dompet')),
-    const Center(child: Text('Profil')),
+    const HomeScreen(),
+    const Center(child: Text('Daftar Transaksi')), // TODO: Buat screen transaksi
+    const WalletScreen(),
+    const Center(child: Text('Profil & Pengaturan')), // TODO: Buat screen profil
   ];
 
   @override
@@ -64,7 +64,10 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
         destinations: const [
           NavigationDestination(icon: Icon(Icons.home), label: 'Beranda'),
           NavigationDestination(icon: Icon(Icons.list_alt), label: 'Transaksi'),
-          NavigationDestination(icon: Icon(Icons.account_balance_wallet), label: 'Dompet'),
+          NavigationDestination(
+            icon: Icon(Icons.account_balance_wallet),
+            label: 'Dompet',
+          ),
           NavigationDestination(icon: Icon(Icons.person), label: 'Profil'),
         ],
       ),

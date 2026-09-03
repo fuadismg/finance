@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'auth_provider.dart';
 
 class RegisterScreen extends ConsumerStatefulWidget {
@@ -18,7 +19,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
   void _register() async {
     setState(() => _isLoading = true);
     final authNotifier = ref.read(authStateProvider.notifier);
-    
+
     final result = await authNotifier.register(
       _namaController.text,
       _emailController.text,
@@ -28,9 +29,8 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
     setState(() => _isLoading = false);
 
     if (mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(result['message'])),
-      );
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(result['message'])));
       if (result['success']) {
         Navigator.pop(context); // Kembali ke layar login jika sukses
       }
@@ -40,9 +40,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Daftar Akun Baru'),
-      ),
+      appBar: AppBar(title: const Text('Daftar Akun Baru')),
       body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(24.0),
@@ -88,7 +86,10 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                     ? const SizedBox(
                         height: 20,
                         width: 20,
-                        child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2),
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                          strokeWidth: 2,
+                        ),
                       )
                     : const Text('Daftar'),
               ),

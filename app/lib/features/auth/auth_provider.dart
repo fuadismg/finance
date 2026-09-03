@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'auth_service.dart';
 
 final authServiceProvider = Provider<AuthService>((ref) {
@@ -29,7 +30,11 @@ class AuthNotifier extends StateNotifier<bool> {
     return result;
   }
 
-  Future<Map<String, dynamic>> register(String nama, String email, String password) async {
+  Future<Map<String, dynamic>> register(
+    String nama,
+    String email,
+    String password,
+  ) async {
     return await _authService.register(nama, email, password);
   }
 

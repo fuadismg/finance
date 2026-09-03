@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'auth_provider.dart';
 import 'register_screen.dart';
 
@@ -18,7 +19,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   void _login() async {
     setState(() => _isLoading = true);
     final authNotifier = ref.read(authStateProvider.notifier);
-    
+
     final result = await authNotifier.login(
       _emailController.text,
       _passwordController.text,
@@ -28,9 +29,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
     if (mounted) {
       if (!result['success']) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(result['message'])),
-        );
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(result['message'])));
       }
       // Jika berhasil, Provider akan otomatis mengubah state dan main.dart akan mendeteksinya.
     }
@@ -87,17 +87,23 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     ? const SizedBox(
                         height: 20,
                         width: 20,
-                        child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2),
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                          strokeWidth: 2,
+                        ),
                       )
                     : const Text('Masuk'),
               ),
               const SizedBox(height: 16),
               TextButton(
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (_) => const RegisterScreen()));
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const RegisterScreen()),
+                  );
                 },
                 child: const Text('Belum punya akun? Daftar di sini'),
-              )
+              ),
             ],
           ),
         ),
